@@ -93,20 +93,20 @@ class App extends Component {
     //     }
     // }
 
-    onDelete = (id) => {
-        var { tasks } = this.state;
-        var index = this.findIndex(id);
-        if (index !== -1) {
-            tasks.splice(index, 1)
-            this.setState({
-                tasks: tasks
-            });
-            if (typeof(Storage) !== "undefined") {
-                localStorage.setItem('tasks', JSON.stringify(tasks));
-            }
-        }
-        this.onCloseForm();
-    }
+    // onDelete = (id) => {
+    //     var { tasks } = this.state;
+    //     var index = this.findIndex(id);
+    //     if (index !== -1) {
+    //         tasks.splice(index, 1)
+    //         this.setState({
+    //             tasks: tasks
+    //         });
+    //         if (typeof(Storage) !== "undefined") {
+    //             localStorage.setItem('tasks', JSON.stringify(tasks));
+    //         }
+    //     }
+    //     this.onCloseForm();
+    // }
 
     onUpdate = (id) => {
         var { tasks } = this.state;
