@@ -64,7 +64,12 @@ class App extends Component {
         //         taskEditing: null
         //     });
         // }
-        this.props.onToggleForm();
+        let {itemEditing } = this.props;
+        if (itemEditing && itemEditing.id) {
+            this.props.onOpenForm();
+        } else {
+            this.props.onToggleForm();
+        }
         this.props.onClearTask({
            id: '',
            name: '',
@@ -113,15 +118,15 @@ class App extends Component {
     //     this.onCloseForm();
     // }
 
-    onUpdate = (id) => {
-        var { tasks } = this.state;
-        var index = this.findIndex(id);
-        var taskEditing = tasks[index];
-        this.setState({
-            taskEditing: taskEditing
-        });
-        this.onShowForm();
-    }
+    // onUpdate = (id) => {
+    //     var { tasks } = this.state;
+    //     var index = this.findIndex(id);
+    //     var taskEditing = tasks[index];
+    //     this.setState({
+    //         taskEditing: taskEditing
+    //     });
+    //     this.onShowForm();
+    // }
 
     onFilter = (filterName, filterStatus) => {
         filterStatus = parseInt(filterStatus, 10);
@@ -237,8 +242,8 @@ class App extends Component {
                         />
                         {/* TASK LIST */}
                         <TaskList
-                            onDelete={ this.onDelete }
-                            onUpdate={ this.onUpdate }
+                            // onDelete={ this.onDelete }
+                            // onUpdate={ this.onUpdate }
                             // onUpdateStatus={ this.onUpdateStatus }
                             onFilter={ this.onFilter }
                         />
@@ -251,7 +256,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
     return {
-        isDisplayForm: state.isDisplayForm
+        isDisplayForm: state.isDisplayForm,
+        itemEditing: state.itemEditing
     }
 }
 
@@ -261,7 +267,11 @@ const mapDispatchToProps = (dispatch, props) => {
             dispatch(actions.toggleForm());
         },
         onClearTask: task => {
-            dispatch(actions.editTask(task));}
+            dispatch(actions.editTask(task));
+        },
+        onOpenForm: () => {
+            dispatch(actions.openForm());
+        }
     }
 }
 
