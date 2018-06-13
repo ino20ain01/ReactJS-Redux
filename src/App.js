@@ -128,15 +128,15 @@ class App extends Component {
     //     this.onShowForm();
     // }
 
-    onFilter = (filterName, filterStatus) => {
-        filterStatus = parseInt(filterStatus, 10);
-        this.setState({
-            filter: {
-                name: filterName.toLowerCase(),
-                status: filterStatus
-            }
-        });
-    }
+    // onFilter = (filterName, filterStatus) => {
+    //     filterStatus = parseInt(filterStatus, 10);
+    //     this.setState({
+    //         filter: {
+    //             name: filterName.toLowerCase(),
+    //             status: filterStatus
+    //         }
+    //     });
+    // }
 
     onSearch = (keyword) => {
         this.setState({
@@ -245,7 +245,7 @@ class App extends Component {
                             // onDelete={ this.onDelete }
                             // onUpdate={ this.onUpdate }
                             // onUpdateStatus={ this.onUpdateStatus }
-                            onFilter={ this.onFilter }
+                            // onFilter={ this.onFilter }
                         />
                     </div>
                 </div>

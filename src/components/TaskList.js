@@ -21,20 +21,38 @@ class TaskList extends Component {
         //     name === 'filterName' ? value : this.state.filterName,
         //     name === 'filterStatus' ? value : this.state.filterStatus
         // )
-        this.props.onFilterTable(
-            name === 'filterName' ? value : this.state.filterName,
-            name === 'filterStatus' ? value : this.state.filterStatus
-        );
+        let filter = {
+                name: name === 'filterName' ? value : this.state.filterName,
+                status: name === 'filterStatus' ? value : this.state.filterStatus
+        };
+        this.props.onFilterTable(filter);
         this.setState({
             [name]: value
         });
     }
 
     render() {
-        var { tasks } = this.props,
-            { filterName, filterStatus } = this.state,
+        var { tasks, filterTable } = this.props,
             elmTask = [];
+            // { filterName, filterStatus } = this.state,
         if (tasks) {
+
+            // Filter
+            if (filterTable) {
+                if (filterTable.name) {
+                    tasks = tasks.filter((task) => {
+                       return task.name.toLowerCase().indexOf(filterTable.name.toLowerCase()) !== -1;
+                    });
+                }
+                tasks = tasks.filter((task) => {
+                    if (filterTable.status === -1) {
+                        return tasks;
+                    } else {
+                        return task.status === (filterTable.status === 1 ? true : false);
+                    }
+                });
+            }
+
             elmTask = tasks.map((task, index) => {
                 return <TaskItem
                     key={ task.id + '-' + index}
@@ -65,7 +83,7 @@ class TaskList extends Component {
                                     type="text"
                                     className="form-control"
                                     name="filterName"
-                                    value={ filterName }
+                                    value={ filterTable.filterName }
                                     onChange={ this.onChange }
                                 />
                             </td>
@@ -73,7 +91,7 @@ class TaskList extends Component {
                                 <select
                                     name="filterStatus"
                                     className="form-control"
-                                    value={ filterStatus }
+                                    value={ filterTable.filterStatus }
                                     onChange={ this.onChange }
                                 >
                                     <option value={-1}>Tất cả</option>
@@ -94,7 +112,8 @@ class TaskList extends Component {
 
 const mapsStateToProps = (state) => {
     return {
-        tasks: state.tasks
+        tasks: state.tasks,
+        filterTable: state.filterTable,
     }
 }
 
