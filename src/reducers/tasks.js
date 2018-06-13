@@ -19,17 +19,23 @@ let findIndex = (tasks, id) => {
 
 let myReducer = (state = initialState, action) => {
     let id = 0,
-        index = 0;
+        index = -1;
     switch (action.type) {
         case types.LIST_ALL:
             return state;
-        case types.ADD_TASK:
-            let newTasks = {
-                id: Math.random() + '-' + Math.random(),
+        case types.SAVE_TASK:
+            let task = {
+                id: action.task.id,
                 name: action.task.name,
                 status: action.task.status
             }
-            state.push(newTasks);
+            if (task.id) {
+                index = findIndex(state, task.id);
+                state[index] = task;
+            } else {
+                task.id = Math.random() + '-' + Math.random();
+                state.push(task);
+            }
             if (typeof(Storage) !== "undefined") {
                 localStorage.setItem('tasks', JSON.stringify(state));
             }

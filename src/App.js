@@ -65,6 +65,11 @@ class App extends Component {
         //     });
         // }
         this.props.onToggleForm();
+        this.props.onClearTask({
+           id: '',
+           name: '',
+           status: false
+        });
     }
 
     onShowForm()  {
@@ -153,13 +158,13 @@ class App extends Component {
 
     render() {
 
-        var {
+        // var {
             // isDisplayForm,
-            taskEditing,
+            // taskEditing,
             // filter,
             // keyword,
             // sort
-        } = this.state;
+        // } = this.state;
         let { isDisplayForm } = this.props;
         // if (filter) {
         //     if (filter.name) {
@@ -194,10 +199,10 @@ class App extends Component {
         //         else return 0;
         //     });
         // }
-        var elmTaskForm = isDisplayForm ? <TaskForm
-                                            onCloseForm={ this.onCloseForm }
-                                            task={ taskEditing }
-                                            /> : '';
+        // var elmTaskForm = isDisplayForm ? <TaskForm
+        //                                     onCloseForm={ this.onCloseForm }
+        //                                     task={ taskEditing }
+        //                                     /> : '';
         return (
             <div className="container">
                 <div className="text-center">
@@ -206,7 +211,11 @@ class App extends Component {
                 <div className="row">
                     <div className={ isDisplayForm ? 'col-xs-4 col-sm-4 col-md-4 col-lg-4' : '' }>
                         {/* FORM */}
-                        { elmTaskForm }
+                        {/*{ elmTaskForm }*/}
+                        <TaskForm
+                            // onCloseForm={ this.onCloseForm }
+                            // task={ taskEditing }
+                        />
                     </div>
                     <div className={ isDisplayForm ? 'col-xs-8 col-sm-8 col-md-8 col-lg-8' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12' }>
                         <button
@@ -250,7 +259,9 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         onToggleForm: () => {
             dispatch(actions.toggleForm());
-        }
+        },
+        onClearTask: task => {
+            dispatch(actions.editTask(task));}
     }
 }
 

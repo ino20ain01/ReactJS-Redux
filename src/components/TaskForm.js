@@ -15,28 +15,26 @@ class TaskForm extends Component {
     }
 
     componentWillMount() {
-        if (this.props.task) {
+        if (this.props.itemEditing && this.props.itemEditing.id) {
             this.setState({
-                id: this.props.task.id,
-                name: this.props.task.name,
-                status: this.props.task.status
+                id: this.props.itemEditing.id,
+                name: this.props.itemEditing.name,
+                status: this.props.itemEditing.status
             });
+        } else {
+            this.onClear();
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps && nextProps.task) {
+        if (nextProps && nextProps.itemEditing) {
             this.setState({
-                id: nextProps.task.id,
-                name: nextProps.task.name,
-                status: nextProps.task.status
+                id: nextProps.itemEditing.id,
+                name: nextProps.itemEditing.name,
+                status: nextProps.itemEditing.status
             });
-        } else if (nextProps && !nextProps.task) {
-            this.setState({
-                id: '',
-                name: '',
-                status: false
-            });
+        } else if (nextProps && !nextProps.itemEditing) {
+            this.onClear();
         }
     }
 
@@ -59,7 +57,7 @@ class TaskForm extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         // this.props.onSubmit(this.state);
-        this.props.onAddTask(this.state);
+        this.props.onSaveTask(this.state);
         this.onClear();
         this.onCloseForm();
     }
@@ -75,6 +73,8 @@ class TaskForm extends Component {
     render() {
 
         var { id } = this.state;
+
+        if (!this.props.isDisplayForm) return '';
 
         return (
             <div className="panel panel-primary">
@@ -132,17 +132,21 @@ class TaskForm extends Component {
 
 const mapStateToProps = (state) => {
     return {
-
+        isDisplayForm: state.isDisplayForm,
+        itemEditing: state.itemEditing
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        onAddTask: (task) => {
-            dispatch(actions.addTask(task))
+        onSaveTask: (task) => {
+            dispatch(actions.saveTask(task));
         },
         onCloseForm: () => {
             dispatch(actions.closeForm());
+        },
+        onToggleForm: () => {
+            dispatch(actions.toggleForm());
         }
     }
 }
