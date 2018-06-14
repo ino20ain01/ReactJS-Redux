@@ -56,7 +56,6 @@ class TaskForm extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        // this.props.onSubmit(this.state);
         this.props.onSaveTask(this.state);
         this.onClear();
         this.onCloseForm();
@@ -64,7 +63,6 @@ class TaskForm extends Component {
 
     onClear = () => {
         this.setState({
-            // id: '',
             name: '',
             status: false
         });

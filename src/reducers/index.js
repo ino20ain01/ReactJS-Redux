@@ -4,13 +4,15 @@ import isDisplayForm from './isDisplayForm';
 import itemEditing from './itemEditing';
 import filterTable from './filterTable';
 import search from './search';
+import sort from './sort';
 
 const myReducer = combineReducers({
     tasks, // myReducer: myReducer
     isDisplayForm, // isDisplayForm: isDisplayForm
     itemEditing, // itemEditing: itemEditing
     filterTable, // filterTable: filterTable
-    search // search: search
+    search, // search: search
+    sort // sort: sort
 });
 
 export default myReducer;

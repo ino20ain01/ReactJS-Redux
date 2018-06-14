@@ -7,11 +7,9 @@ class Filter extends Component {
         return (
             <div className="row mt-2">
                 {/* SEARCH */}
-                <Search
-                    // onSearch={ this.props.onSearch }
-                />
+                <Search />
                 {/* SORF */}
-                <Sort onSort={ this.props.onSort } />
+                <Sort />
             </div>
         );
     }

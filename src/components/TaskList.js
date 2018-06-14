@@ -32,9 +32,16 @@ class TaskList extends Component {
     }
 
     render() {
-        let { tasks, filterTable, keyword } = this.props,
-            elmTask = [];
-            // { filterName, filterStatus } = this.state,
+        let {
+            tasks,
+            filterTable,
+            keyword,
+            sort
+        } = this.props;
+
+        let elmTask = [];
+        // { filterName, filterStatus } = this.state,
+
         if (tasks) {
 
             // Filter
@@ -50,6 +57,20 @@ class TaskList extends Component {
                     } else {
                         return task.status === (filterTable.status === 1 ? true : false);
                     }
+                });
+            }
+            if (sort.by === 'name') {
+                tasks.sort((a, b) => {
+                    if (a.name.toLowerCase() > b.name.toLowerCase()) return sort.value;
+                    else if (a.name.toLowerCase() < b.name.toLowerCase()) return -sort.value;
+                    else return 0;
+                });
+            }
+            if (sort.by === 'status') {
+                tasks.sort((a, b) => {
+                    if (a.status > b.status) return -sort.value;
+                    else if (a.status < b.status) return sort.value;
+                    else return 0;
                 });
             }
 
@@ -119,6 +140,7 @@ const mapsStateToProps = (state) => {
         tasks: state.tasks,
         filterTable: state.filterTable,
         keyword: state.search,
+        sort: state.sort
     }
 }
 
