@@ -17,10 +17,6 @@ class TaskList extends Component {
         var target = e.target,
             name = target.name,
             value = target.value;
-        // this.props.onFilter(
-        //     name === 'filterName' ? value : this.state.filterName,
-        //     name === 'filterStatus' ? value : this.state.filterStatus
-        // )
         let filter = {
                 name: name === 'filterName' ? value : this.state.filterName,
                 status: name === 'filterStatus' ? value : this.state.filterStatus
@@ -40,7 +36,6 @@ class TaskList extends Component {
         } = this.props;
 
         let elmTask = [];
-        // { filterName, filterStatus } = this.state,
 
         if (tasks) {
 
@@ -82,8 +77,6 @@ class TaskList extends Component {
                 return <TaskItem
                     key={ task.id + '-' + index}
                     task={ task } index={ index }
-                    // onUpdateStatus={ this.props.onUpdateStatus }
-                    // onDelete={ this.props.onDelete }
                     onUpdate={ this.props.onUpdate }
                 />
             });
